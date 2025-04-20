@@ -2,11 +2,12 @@ services:
   api:
     # image: gitmotion/ollama-api-server:latest
     build: .
-    container_name: ollama-api
+    container_name: ollama-api-server
+    restart: unless-stopped
     ports:
       - "${PORT_EXTERNAL:-7777}:7777"
     environment:
       - PORT=7777
-      - OLLAMA_BASE_URL=http://127.0.0.1:11434
+      - OLLAMA_BASE_URL=http://internal-ip-where-ollama-installed:11434 # must serve your ollama server with 0.0.0.0
       - CORS_ORIGIN=*
       - API_KEYS=${API_KEYS:-default-key-1,default-key-2}
