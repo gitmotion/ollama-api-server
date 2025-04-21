@@ -1,4 +1,7 @@
 # 🦙 Ollama API Server
+[![Docker](https://img.shields.io/docker/v/gitmotion/ollama-api-server?logo=docker&label=Docker)](https://hub.docker.com/r/gitmotion/ollama-api-server)
+
+
 A simple, easy-to-use api server that sits in front of your local ollama instance to add additional security when making requests to ollama.
 
 <a href="https://www.buymeacoffee.com/gitmotion" target="_blank" rel="noopener noreferrer">
@@ -9,9 +12,9 @@ A simple, easy-to-use api server that sits in front of your local ollama instanc
 - [⭐ Features](#-features)
 - [🎛️ Example Flow](#-example-flow)
 - [🚀 Quick Start](#-quick-start)
-- [📖 Detailed Setup](#-detailed-setup)
   - [🐳 Docker Setup (Recommended)](#-docker-setup-recommended)
   - [📂 Docker Image](#-docker-image)
+  - [🚀 Docker Run](#-docker-run)
   - [📄 Docker Compose Configuration](#-docker-compose-configuration)
   - [💻 Local Setup](#-local-setup)
 - [⚙️ Configuration](#-configuration)
@@ -70,18 +73,6 @@ flowchart TD
 
 ## 🚀 Quick Start
 
-```bash
-# 1. Create a .env file with your API keys
-echo "API_KEYS=your-secret-key-1,your-secret-key-2" > .env
-
-# 2. Start the server with Docker
-docker compose up -d
-```
-
-That's it! Your secure Ollama API server is running on port 7777.
-
-## 📖 Detailed Setup
-
 ### 🐳 Docker Setup (Recommended)
 
 ### 📂 Docker Image
@@ -96,29 +87,19 @@ docker pull gitmotion/ollama-api-server:latest
 docker pull ghcr.io/gitmotion/ollama-api-server:latest
 ```
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/gitmotion/ollama-api-server.git
-   cd ollama-api-server
-   ```
+### 🚀 Docker Run
 
-2. Create a .env file:
-   ```bash
-   cp .env.example .env
-   ```
-
-3. Edit the .env file with your preferred settings:
-   ```env
-   PORT_EXTERNAL=7777
-   OLLAMA_BASE_URL=http://localhost:11434
-   CORS_ORIGIN=*
-   API_KEYS=your-secret-key-1,your-secret-key-2
-   ```
-
-4. Start the server:
-   ```bash
-   docker compose up -d
-   ```
+```bash
+docker run -d \
+  --name ollama-api-server \
+  --restart unless-stopped \
+  -p 7777:7777 \
+  -e PORT=7777 \
+  -e OLLAMA_BASE_URL=http://internal-ip-where-ollama-installed:11434 \
+  -e CORS_ORIGIN=* \
+  -e API_KEYS=default-key-1,default-key-2 \
+  gitmotion/ollama-api-server:latest
+```
 
 ### 📄 Docker Compose Configuration
 
@@ -263,9 +244,6 @@ Include your API key in requests using one of these methods:
         -d '{"apiKey": "your-api-key"}' \
         http://localhost:7777/api/tags
    ```
-
-For the latest version and updates, check out our GitHub repository.
-
 ___
 
 Made with ❤️ by [gitmotion](https://github.com/gitmotion)
