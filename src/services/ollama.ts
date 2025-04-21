@@ -32,6 +32,7 @@ export class OllamaService {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache, no-transform');
     res.setHeader('Connection', 'keep-alive');
+    res.setHeader('X-Accel-Buffering', 'no'); // Disable nginx buffering
     res.setHeader('Transfer-Encoding', 'chunked');
     res.flushHeaders();
   }

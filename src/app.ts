@@ -8,12 +8,15 @@ dotenv.config();
 
 const app = express();
 
+// Trust proxy settings for proper client IP handling
+app.set('trust proxy', true);
+
 // Middleware
 app.use(express.json());
 app.use(cors({
   origin: config.corsOrigin,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'x-api-key', 'Authorization', 'X-Requested-With'],
+  allowedHeaders: ['Content-Type', 'x-api-key', 'Authorization', 'X-Requested-With', 'X-Forwarded-For', 'X-Real-IP'],
   exposedHeaders: ['Content-Length', 'Content-Type'],
   credentials: true,
   maxAge: 86400,
@@ -22,9 +25,16 @@ app.use(cors({
 
 // Add headers middleware
 const headersMiddleware: RequestHandler = (req, res, next) => {
+  // Get the actual client IP when behind a proxy
+  const clientIP = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.ip;
+  
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, x-api-key, Authorization, X-Requested-With');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, x-api-key, Authorization, X-Requested-With, X-Forwarded-For, X-Real-IP');
+  
+  // Set Cache-Control to no-cache for streaming responses
+  res.header('Cache-Control', 'no-cache, no-transform');
+  
   if (req.method === 'OPTIONS') {
     res.status(204).end();
     return;
