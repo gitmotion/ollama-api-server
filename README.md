@@ -6,17 +6,17 @@ A simple, easy-to-use api server that sits in front of your local ollama instanc
 </a>
 
 ## 📑 Table of Contents
-- [⭐ Features](#⭐-features)
-- [🎛️ Example Flow](#🎛️-example-flow)
-- [🚀 Quick Start](#🚀-quick-start)
-- [📖 Detailed Setup](#📖-detailed-setup)
-  - [🐳 Docker Setup (Recommended)](#🐳-docker-setup-recommended)
-  - [📂 Docker Image](#📂-docker-image)
-  - [📄 Docker Compose Configuration](#📄-docker-compose-configuration)
-  - [💻 Local Setup](#💻-local-setup)
-- [⚙️ Configuration](#⚙️-configuration)
-- [🔌 API Endpoints](#🔌-api-endpoints)
-- [🔐 Authentication](#🔐-authentication)
+- [⭐ Features](#-features)
+- [🎛️ Example Flow](#-example-flow)
+- [🚀 Quick Start](#-quick-start)
+- [📖 Detailed Setup](#-detailed-setup)
+  - [🐳 Docker Setup (Recommended)](#-docker-setup-recommended)
+  - [📂 Docker Image](#-docker-image)
+  - [📄 Docker Compose Configuration](#-docker-compose-configuration)
+  - [💻 Local Setup](#-local-setup)
+- [⚙️ Configuration](#-configuration)
+- [🔌 API Endpoints](#-api-endpoints)
+- [🔐 Authentication](#-authentication)
 
 ## ⭐ Features
 - 🔑 API Key Authentication
